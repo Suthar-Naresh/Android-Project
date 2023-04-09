@@ -22,23 +22,27 @@
         android:layout_marginTop="30dp">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radioButtonFilterAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:checked="true"
             android:text="All"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButtonFilterIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Income"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radioButtonFilterExpense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="Expense"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </RadioGroup>
