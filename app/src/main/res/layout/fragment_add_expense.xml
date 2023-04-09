@@ -20,6 +20,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:text="Title:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/expenseTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/expenseTitle" />
@@ -44,6 +45,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:text="Amount:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/expenseAmount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/expenseAmount" />
@@ -52,7 +54,7 @@
             android:id="@+id/expenseAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:ems="10"
@@ -67,15 +69,16 @@
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:text="Expense Type:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/expenseTypeSpinner"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/expenseTypeSpinner" />
 
         <Spinner
             android:id="@+id/expenseTypeSpinner"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,11 +86,12 @@
 
         <TextView
             android:id="@+id/textDate"
-            android:layout_width="32dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:text="When:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/expenseDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/expenseDate" />
@@ -96,7 +100,7 @@
             android:id="@+id/expenseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:ems="10"
@@ -105,28 +109,74 @@
             app:layout_constraintTop_toBottomOf="@+id/expenseTypeSpinner" />
 
         <TextView
+            android:id="@+id/textWhatIsThis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:text="What:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="@+id/radioGroup"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/radioGroup" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expenseDate">
+
+            <LinearLayout
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Income"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <RadioButton
+                    android:id="@+id/radioExpense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Expense"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            </LinearLayout>
+        </RadioGroup>
+
+        <TextView
             android:id="@+id/textDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
             android:text="Description:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="@+id/expenseDescription"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/expenseDescription" />
 
         <EditText
             android:id="@+id/expenseDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:ems="10"
-            android:hint="Small Description"
+            android:hint="Give a small description..."
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/expenseDate" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
         <Button
             android:id="@+id/addExpense"
@@ -134,10 +184,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
+            android:background="@color/purple_500"
             android:text="Add Expense"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/expenseDescription" />
@@ -150,8 +204,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="#F44336"
             android:text="Cancel"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
