@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //        This should be after setOnNavigationItemSelectedListener...
 //        bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_new_expense);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_add_new_expense);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_home);
     }
 
     HomeFragment homeFragment = new HomeFragment();
