@@ -1,5 +1,6 @@
 package com.mad.expensetracker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -55,10 +56,28 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    Activity context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        context = getActivity();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    public void onStart(){
+        super.onStart();
+
+        Button viewAllButton = (Button) context.findViewById(R.id.viewAll);
+
+        viewAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewAllActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
