@@ -104,13 +104,12 @@ public class HomeFragment extends Fragment {
 
 //        Adding data to list
         expenseRowList.add(new SingleRecentCardRow("College To Home","Transport","- ₹100","3 Feb, 2023",R.drawable.transport));
-        expenseRowList.add(new SingleRecentCardRow("Sanju Birthday","Celebration","- ₹250","25 Mar, 2023",R.drawable.birthday));
+        expenseRowList.add(new SingleRecentCardRow("Sanju Birthday","Celebration","- ₹250","25 Mar, 2023",R.drawable.celebration));
         expenseRowList.add(new SingleRecentCardRow("Mobile Recharge","Bill","- ₹700","12 Feb, 2023",R.drawable.bill));
         expenseRowList.add(new SingleRecentCardRow("MAD Xerox","Print","- ₹100","10 Apr, 2023",R.drawable.print));
         expenseRowList.add(new SingleRecentCardRow("Subway","Snacks","- ₹120","27 Jan, 2023",R.drawable.snack));
         expenseRowList.add(new SingleRecentCardRow("New Charger","Shopping","- ₹400","21 Feb, 2023",R.drawable.shopping));
         expenseRowList.add(new SingleRecentCardRow("Coffee","Drinks","- ₹20","22 Feb, 2023",R.drawable.chai_coffee));
-
 
         DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
