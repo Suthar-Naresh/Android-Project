@@ -71,7 +71,6 @@ public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRe
             cardExpenseAmount = itemView.findViewById(R.id.cardExpenseAmount);
             cardExpenseDate = itemView.findViewById(R.id.cardExpenseDate);
 
-
         }
     }
 }

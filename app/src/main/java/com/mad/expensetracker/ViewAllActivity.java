@@ -6,6 +6,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewAllActivity extends AppCompatActivity {
 
@@ -34,6 +39,41 @@ public class ViewAllActivity extends AppCompatActivity {
                 showBottomSheet();
             }
         });
+
+        initData();
+        viewAllListRecyclerView = findViewById(R.id.viewAllList);
+        SectionRecyclerAdaptor mainRecyclerAdaptor = new SectionRecyclerAdaptor(sectionList);
+        viewAllListRecyclerView.setAdapter(mainRecyclerAdaptor);
+
+        viewAllListRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+    }
+
+//    probably database fetch?
+
+    List<Section> sectionList = new ArrayList<>();
+    RecyclerView viewAllListRecyclerView;
+
+    private void initData(){
+        String section1 = "1 Jan, 2023";
+        List<String> section1List = new ArrayList<>();
+        section1List.add("College To Home");
+        section1List.add("Subway");
+
+        String section2 = "25 Apr, 2023";
+        List<String> section2List = new ArrayList<>();
+        section2List.add("Sanju Birthday");
+
+        String section3 = "11 Jan, 2023";
+        List<String> section3List = new ArrayList<>();
+        section3List.add("College To Home");
+        section3List.add("Mobile Recharge");
+        section3List.add("CNS Xerox");
+        section3List.add("MAD Xerox");
+
+        sectionList.add(new Section(section1, section1List));
+        sectionList.add(new Section(section2, section2List));
+        sectionList.add(new Section(section3, section3List));
     }
 
     private void showBottomSheet(){
