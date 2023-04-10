@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -72,6 +75,10 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     RecentListRecyclerAdaptor recyclerAdaptor;
 
+//    Lists to store the respective row data which will come from database
+    List<String> cardExpenseTitles, cardExpenseTypes, cardExpenseAmounts, cardExpenseDates;
+    List<Integer> expenseTypeIcons;
+
     public void onStart(){
         super.onStart();
 
@@ -85,10 +92,64 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //        Make databse call and set the values accordingly from database...
+
+        cardExpenseTitles = new ArrayList<>();
+        cardExpenseTypes = new ArrayList<>();
+        cardExpenseAmounts = new ArrayList<>();
+        cardExpenseDates = new ArrayList<>();
+        expenseTypeIcons = new ArrayList<>();
+
         recyclerView = context.findViewById(R.id.recentList);
-        recyclerAdaptor = new RecentListRecyclerAdaptor();
+//        recyclerAdaptor = new RecentListRecyclerAdaptor();
+
+//        As we made constructor to map icons, dates etc to particular row!
+        recyclerAdaptor = new RecentListRecyclerAdaptor(cardExpenseTitles, cardExpenseTypes, cardExpenseAmounts, cardExpenseDates, expenseTypeIcons);
 
         recyclerView.setAdapter(recyclerAdaptor);
+
+//        Adding data to lists
+        cardExpenseTitles.add("College To Home");
+        cardExpenseTypes.add("Transport");
+        cardExpenseAmounts.add("- ₹100");
+        cardExpenseDates.add("3 Feb, 2023");
+        expenseTypeIcons.add(R.drawable.transport);
+
+        cardExpenseTitles.add("Sanju Birthday");
+        cardExpenseTypes.add("Celebration");
+        cardExpenseAmounts.add("- ₹250");
+        cardExpenseDates.add("25 Mar, 2023");
+        expenseTypeIcons.add(R.drawable.birthday);
+
+        cardExpenseTitles.add("Mobile Recharge");
+        cardExpenseTypes.add("Bill");
+        cardExpenseAmounts.add("- ₹700");
+        cardExpenseDates.add("12 Feb, 2023");
+        expenseTypeIcons.add(R.drawable.bill);
+
+        cardExpenseTitles.add("MAD Xerox");
+        cardExpenseTypes.add("Print");
+        cardExpenseAmounts.add("- ₹100");
+        cardExpenseDates.add("10 Apr, 2023");
+        expenseTypeIcons.add(R.drawable.print);
+
+        cardExpenseTitles.add("Subway");
+        cardExpenseTypes.add("Snacks");
+        cardExpenseAmounts.add("- ₹120");
+        cardExpenseDates.add("27 Jan, 2023");
+        expenseTypeIcons.add(R.drawable.snack);
+
+        cardExpenseTitles.add("New Charger");
+        cardExpenseTypes.add("Shopping");
+        cardExpenseAmounts.add("- ₹400");
+        cardExpenseDates.add("21 Feb, 2023");
+        expenseTypeIcons.add(R.drawable.shopping);
+
+        cardExpenseTitles.add("Coffee");
+        cardExpenseTypes.add("Drinks");
+        cardExpenseAmounts.add("- ₹20");
+        cardExpenseDates.add("22 Feb, 2023");
+        expenseTypeIcons.add(R.drawable.chai_coffee);
 
         DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
