@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bottom_navigation_home"
+        android:icon="@drawable/icon_home"
+        android:title="Home"/>
+
+    <item android:id="@+id/bottom_navigation_add_new_expense"
+        android:icon="@drawable/icon_add_circle"
+        android:title="Add"/>
+
+    <item android:id="@+id/bottom_navigation_analytics"
+        android:icon="@drawable/icon_insights"
+        android:title="Analytics"/>
+</menu>
