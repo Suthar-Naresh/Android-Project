@@ -75,9 +75,8 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     RecentListRecyclerAdaptor recyclerAdaptor;
 
-//    Lists to store the respective row data which will come from database
-    List<String> cardExpenseTitles, cardExpenseTypes, cardExpenseAmounts, cardExpenseDates;
-    List<Integer> expenseTypeIcons;
+//    List to store the respective row data which will come from database
+    List<SingleRecentCardRow> expenseRowList;
 
     public void onStart(){
         super.onStart();
@@ -92,66 +91,42 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //        Make databse call and set the values accordingly from database...
+        //        Make database call and set the values accordingly from database...
 
-        cardExpenseTitles = new ArrayList<>();
-        cardExpenseTypes = new ArrayList<>();
-        cardExpenseAmounts = new ArrayList<>();
-        cardExpenseDates = new ArrayList<>();
-        expenseTypeIcons = new ArrayList<>();
+        expenseRowList = new ArrayList<>();
 
         recyclerView = context.findViewById(R.id.recentList);
-//        recyclerAdaptor = new RecentListRecyclerAdaptor();
 
 //        As we made constructor to map icons, dates etc to particular row!
-        recyclerAdaptor = new RecentListRecyclerAdaptor(cardExpenseTitles, cardExpenseTypes, cardExpenseAmounts, cardExpenseDates, expenseTypeIcons);
+        recyclerAdaptor = new RecentListRecyclerAdaptor(expenseRowList);
 
         recyclerView.setAdapter(recyclerAdaptor);
 
-//        Adding data to lists
-        cardExpenseTitles.add("College To Home");
-        cardExpenseTypes.add("Transport");
-        cardExpenseAmounts.add("- ₹100");
-        cardExpenseDates.add("3 Feb, 2023");
-        expenseTypeIcons.add(R.drawable.transport);
+//        Adding data to list
+        expenseRowList.add(new SingleRecentCardRow("College To Home","Transport","- ₹100","3 Feb, 2023",R.drawable.transport));
+        expenseRowList.add(new SingleRecentCardRow("Sanju Birthday","Celebration","- ₹250","25 Mar, 2023",R.drawable.birthday));
+        expenseRowList.add(new SingleRecentCardRow("Mobile Recharge","Bill","- ₹700","12 Feb, 2023",R.drawable.bill));
+        expenseRowList.add(new SingleRecentCardRow("MAD Xerox","Print","- ₹100","10 Apr, 2023",R.drawable.print));
+        expenseRowList.add(new SingleRecentCardRow("Subway","Snacks","- ₹120","27 Jan, 2023",R.drawable.snack));
+        expenseRowList.add(new SingleRecentCardRow("New Charger","Shopping","- ₹400","21 Feb, 2023",R.drawable.shopping));
+        expenseRowList.add(new SingleRecentCardRow("Coffee","Drinks","- ₹20","22 Feb, 2023",R.drawable.chai_coffee));
 
-        cardExpenseTitles.add("Sanju Birthday");
-        cardExpenseTypes.add("Celebration");
-        cardExpenseAmounts.add("- ₹250");
-        cardExpenseDates.add("25 Mar, 2023");
-        expenseTypeIcons.add(R.drawable.birthday);
-
-        cardExpenseTitles.add("Mobile Recharge");
-        cardExpenseTypes.add("Bill");
-        cardExpenseAmounts.add("- ₹700");
-        cardExpenseDates.add("12 Feb, 2023");
-        expenseTypeIcons.add(R.drawable.bill);
-
-        cardExpenseTitles.add("MAD Xerox");
-        cardExpenseTypes.add("Print");
-        cardExpenseAmounts.add("- ₹100");
-        cardExpenseDates.add("10 Apr, 2023");
-        expenseTypeIcons.add(R.drawable.print);
-
-        cardExpenseTitles.add("Subway");
-        cardExpenseTypes.add("Snacks");
-        cardExpenseAmounts.add("- ₹120");
-        cardExpenseDates.add("27 Jan, 2023");
-        expenseTypeIcons.add(R.drawable.snack);
-
-        cardExpenseTitles.add("New Charger");
-        cardExpenseTypes.add("Shopping");
-        cardExpenseAmounts.add("- ₹400");
-        cardExpenseDates.add("21 Feb, 2023");
-        expenseTypeIcons.add(R.drawable.shopping);
-
-        cardExpenseTitles.add("Coffee");
-        cardExpenseTypes.add("Drinks");
-        cardExpenseAmounts.add("- ₹20");
-        cardExpenseDates.add("22 Feb, 2023");
-        expenseTypeIcons.add(R.drawable.chai_coffee);
 
         DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
+    }
+
+//  Data type to store single card row data
+    class SingleRecentCardRow{
+        String cardExpenseTitle, cardExpenseType, cardExpenseAmount, cardExpenseDate;
+        int expenseTypeIcon;
+
+        public SingleRecentCardRow(String cardExpenseTitle, String cardExpenseType, String cardExpenseAmount, String cardExpenseDate, int expenseTypeIcon) {
+            this.cardExpenseTitle = cardExpenseTitle;
+            this.cardExpenseType = cardExpenseType;
+            this.cardExpenseAmount = cardExpenseAmount;
+            this.cardExpenseDate = cardExpenseDate;
+            this.expenseTypeIcon = expenseTypeIcon;
+        }
     }
 }

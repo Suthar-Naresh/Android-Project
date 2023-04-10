@@ -13,15 +13,10 @@ import java.util.List;
 public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRecyclerAdaptor.RecentCardRow>{
 
 //    To make constructor; so that we can map the values to incoming data!
-    List<String> cardExpenseTitles, cardExpenseTypes, cardExpenseAmounts, cardExpenseDates;
-    List<Integer> expenseTypeIcons;
+    List<HomeFragment.SingleRecentCardRow> expenseRowList;
 
-    public RecentListRecyclerAdaptor(List<String> cardExpenseTitles, List<String> cardExpenseTypes, List<String> cardExpenseAmounts, List<String> cardExpenseDates, List<Integer> expenseTypeIcons) {
-        this.cardExpenseTitles = cardExpenseTitles;
-        this.cardExpenseTypes = cardExpenseTypes;
-        this.cardExpenseAmounts = cardExpenseAmounts;
-        this.cardExpenseDates = cardExpenseDates;
-        this.expenseTypeIcons = expenseTypeIcons;
+    public RecentListRecyclerAdaptor(List<HomeFragment.SingleRecentCardRow> expenseRowList) {
+        this.expenseRowList = expenseRowList;
     }
 
     @NonNull
@@ -47,17 +42,17 @@ public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRe
  */
 
 //        Setting every row data on the basis of lists provided using position of row i.e. from db?
-        recentCardRowHolder.expenseTypeIcon.setImageResource(expenseTypeIcons.get(position));
-        recentCardRowHolder.cardExpenseTitle.setText(cardExpenseTitles.get(position));
-        recentCardRowHolder.cardExpenseType.setText(cardExpenseTypes.get(position));
-        recentCardRowHolder.cardExpenseAmount.setText(cardExpenseAmounts.get(position));
-        recentCardRowHolder.cardExpenseDate.setText(cardExpenseDates.get(position));
+        recentCardRowHolder.expenseTypeIcon.setImageResource(expenseRowList.get(position).expenseTypeIcon);
+        recentCardRowHolder.cardExpenseTitle.setText(expenseRowList.get(position).cardExpenseTitle);
+        recentCardRowHolder.cardExpenseType.setText(expenseRowList.get(position).cardExpenseType);
+        recentCardRowHolder.cardExpenseAmount.setText(expenseRowList.get(position).cardExpenseAmount);
+        recentCardRowHolder.cardExpenseDate.setText(expenseRowList.get(position).cardExpenseDate);
     }
 
     @Override
     public int getItemCount() {
 //        return 10;
-        return cardExpenseAmounts.size();
+        return expenseRowList.size();
     }
 
     class RecentCardRow extends RecyclerView.ViewHolder{
