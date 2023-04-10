@@ -32,7 +32,6 @@ public class ViewAllActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showBottomSheet();
-                Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_LONG).show();
             }
         });
     }
