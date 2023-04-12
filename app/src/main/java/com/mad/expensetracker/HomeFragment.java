@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setAdapter(recyclerAdaptor);
 
-        List<ExpenseRecord> allRecords = db.getAllRecords();
+        List<ExpenseRecord> allRecords = db.getTenRecords();
 
         for (ExpenseRecord i:allRecords){
             int expenseTypeIcon = R.drawable.other_2;

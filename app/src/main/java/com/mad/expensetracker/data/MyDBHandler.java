@@ -59,13 +59,98 @@ public class MyDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<ExpenseRecord> getAllRecords(){
+    public List<ExpenseRecord> getTenRecords(){
 //        Log.d("fetch", "getAllRecords: I'm here!!");
         List<ExpenseRecord> allRecords = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Query to get all records
-        String query = "SELECT * FROM " + Params.TABLE_NAME + " ORDER BY " + Params.KEY_ID + " DESC ";
+        String query = "SELECT * FROM " + Params.TABLE_NAME + " ORDER BY " + Params.KEY_ID + " DESC LIMIT 10";
+        Cursor cursor = db.rawQuery(query, null);
+
+        String title, type, date, description, category;
+        int amount;
+
+        if(cursor.moveToFirst()){
+            do{
+                title = cursor.getString(cursor.getColumnIndex(Params.KEY_TITLE));
+                type = cursor.getString(cursor.getColumnIndex(Params.KEY_TYPE));
+                category = cursor.getString(cursor.getColumnIndex(Params.KEY_CATEGORY));
+                amount = cursor.getInt(cursor.getColumnIndex(Params.KEY_AMOUNT));
+                date = cursor.getString(cursor.getColumnIndex(Params.KEY_DATE));
+                description = cursor.getString(cursor.getColumnIndex(Params.KEY_DESCRIPTION));
+
+//                SingleRecentCardRow cardRow = new SingleRecentCardRow(cardExpenseTitle,cardExpenseType,cardExpenseAmount,cardExpenseDate,expenseTypeIcon);
+
+                allRecords.add(new ExpenseRecord(title,amount,type,date,description,category));
+            }while (cursor.moveToNext());
+        }
+        return allRecords;
+    }
+
+    public List<ExpenseRecord> getAllRecords(){
+        Log.d("fetch", "getAllRecords: I'm here!!");
+        List<ExpenseRecord> allRecords = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query to get all records
+        String query = "SELECT * FROM " + Params.TABLE_NAME + " ORDER BY " + Params.KEY_ID + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        String title, type, date, description, category;
+        int amount;
+
+        if(cursor.moveToFirst()){
+            do{
+                title = cursor.getString(cursor.getColumnIndex(Params.KEY_TITLE));
+                type = cursor.getString(cursor.getColumnIndex(Params.KEY_TYPE));
+                category = cursor.getString(cursor.getColumnIndex(Params.KEY_CATEGORY));
+                amount = cursor.getInt(cursor.getColumnIndex(Params.KEY_AMOUNT));
+                date = cursor.getString(cursor.getColumnIndex(Params.KEY_DATE));
+                description = cursor.getString(cursor.getColumnIndex(Params.KEY_DESCRIPTION));
+
+//                SingleRecentCardRow cardRow = new SingleRecentCardRow(cardExpenseTitle,cardExpenseType,cardExpenseAmount,cardExpenseDate,expenseTypeIcon);
+
+                allRecords.add(new ExpenseRecord(title,amount,type,date,description,category));
+            }while (cursor.moveToNext());
+        }
+        return allRecords;
+    }
+
+    public List<ExpenseRecord> getIncomeRecord(){
+        List<ExpenseRecord> allRecords = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query to get all records
+        String query = "SELECT * FROM " + Params.TABLE_NAME + " WHERE "+Params.KEY_TYPE+"=\"Income\" ORDER BY " + Params.KEY_ID + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+
+        String title, type, date, description, category;
+        int amount;
+
+        if(cursor.moveToFirst()){
+            do{
+                title = cursor.getString(cursor.getColumnIndex(Params.KEY_TITLE));
+                type = cursor.getString(cursor.getColumnIndex(Params.KEY_TYPE));
+                category = cursor.getString(cursor.getColumnIndex(Params.KEY_CATEGORY));
+                amount = cursor.getInt(cursor.getColumnIndex(Params.KEY_AMOUNT));
+                date = cursor.getString(cursor.getColumnIndex(Params.KEY_DATE));
+                description = cursor.getString(cursor.getColumnIndex(Params.KEY_DESCRIPTION));
+
+//                SingleRecentCardRow cardRow = new SingleRecentCardRow(cardExpenseTitle,cardExpenseType,cardExpenseAmount,cardExpenseDate,expenseTypeIcon);
+
+                allRecords.add(new ExpenseRecord(title,amount,type,date,description,category));
+            }while (cursor.moveToNext());
+        }
+        return allRecords;
+    }
+
+    public List<ExpenseRecord> getExpenseRecord(){
+        List<ExpenseRecord> allRecords = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Query to get all records
+        String query = "SELECT * FROM " + Params.TABLE_NAME + " WHERE "+Params.KEY_TYPE+"=\"Expense\" ORDER BY " + Params.KEY_ID + " DESC";
         Cursor cursor = db.rawQuery(query, null);
 
         String title, type, date, description, category;

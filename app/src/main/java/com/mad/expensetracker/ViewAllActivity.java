@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,14 +16,24 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.mad.expensetracker.Models.ExpenseRecord;
+import com.mad.expensetracker.data.MyDBHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllActivity extends AppCompatActivity {
 
-    Button imageButton;
+    Button filterAll,filterIncome,filterExpense;
+
+    RecyclerView recyclerView;
+    ViewAllRecyclerAdaptor recyclerAdaptor;
+    List<SingleRecentCardRow> expenseRowList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,62 +42,107 @@ public class ViewAllActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("View All");
 
-        imageButton = (Button) findViewById(R.id.iconButton);
+        filterAll = findViewById(R.id.buttonAll);
+        filterIncome = findViewById(R.id.buttonIncome);
+        filterExpense = findViewById(R.id.buttonExpense);
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        filterAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showBottomSheet();
+                filterRecords(0);
             }
         });
 
-//        initData();
-        viewAllListRecyclerView = findViewById(R.id.viewAllList);
-        SectionRecyclerAdaptor mainRecyclerAdaptor = new SectionRecyclerAdaptor(sectionList);
-        viewAllListRecyclerView.setAdapter(mainRecyclerAdaptor);
+        filterIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterRecords(1);
+            }
+        });
 
-        viewAllListRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        filterExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterRecords(2);
+            }
+        });
 
+        expenseRowList = new ArrayList<>();
+
+        recyclerView = findViewById(R.id.viewAllList);
+
+        filterRecords(0);
+
+        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(divider);
     }
 
-//    probably database fetch?
 
-    List<Section> sectionList = new ArrayList<>();
-    RecyclerView viewAllListRecyclerView;
+    public void filterRecords(int filter){
+        expenseRowList.clear();
+        MyDBHandler db = new MyDBHandler(this);
+        List<ExpenseRecord> allRecords = db.getAllRecords();;
 
-    private void initData(){
-        String section1 = "1 Jan, 2023";
-        List<Section.SectionChildCard> section1List = new ArrayList<>();
-        section1List.add(new Section.SectionChildCard(R.drawable.bill,"Mobile Recharge","700","1 Jan, 02:12 PM"));
-        section1List.add(new Section.SectionChildCard(R.drawable.snack,"Subway","120","1 Jan, 05:00 PM"));
+        if(filter==0){
+            // Nothing
+        }else if(filter==1){
+            allRecords = db.getIncomeRecord();
+        }else if (filter==2){
+            allRecords = db.getExpenseRecord();
+        }
 
-//        String section2 = "25 Apr, 2023";
-//        List<Section.SectionChildCard> section2List = new ArrayList<>();
-//        section2List.add("Sanju Birthday");
-//
-//        String section3 = "11 Jan, 2023";
-//        List<Section.SectionChildCard> section3List = new ArrayList<>();
-//        section3List.add("College To Home");
-//        section3List.add("Mobile Recharge");
-//        section3List.add("CNS Xerox");
-//        section3List.add("MAD Xerox");
+        for (ExpenseRecord i:allRecords){
+            int expenseTypeIcon = R.drawable.other_2;
 
-//        sectionList.add(new Section(section1, section1List));
-//        sectionList.add(new Section(section2, section2List));
-//        sectionList.add(new Section(section3, section3List));
+            switch (i.getCategory()){
+                case "Other":
+                    expenseTypeIcon = R.drawable.other_2;
+                    break;
+                case "Bill":
+                    expenseTypeIcon = R.drawable.bill;
+                    break;
+                case "Celebration":
+                    expenseTypeIcon = R.drawable.celebration;
+                    break;
+                case "Transport":
+                    expenseTypeIcon = R.drawable.transport;
+                    break;
+                case "Snacks":
+                    expenseTypeIcon = R.drawable.snack;
+                    break;
+                case "Shopping":
+                    expenseTypeIcon = R.drawable.shopping;
+                    break;
+                case "Drinks":
+                    expenseTypeIcon = R.drawable.chai_coffee;
+                    break;
+            }
+
+            String amt = "";
+
+            if (i.getType().equals("Income")){
+                amt+="+ ₹";
+            }else{
+                amt+="- ₹";
+            }
+            amt+=String.valueOf(i.getAmount());
+
+            expenseRowList.add(new SingleRecentCardRow(i.getTitle(),i.getCategory(),amt,i.getDate(),expenseTypeIcon));
+            recyclerAdaptor = new ViewAllRecyclerAdaptor(expenseRowList);
+            recyclerView.setAdapter(recyclerAdaptor);
+        }
     }
 
+    /*
     private void showBottomSheet(){
         final Dialog sheet = new Dialog(this);
         sheet.requestWindowFeature(Window.FEATURE_NO_TITLE);
         sheet.setContentView(R.layout.bottom_modal_sheet);
-
-//        Set on click on every element of sheet in order to make them interactive!
-
         sheet.show();
         sheet.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sheet.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         sheet.getWindow().getAttributes().windowAnimations = R.style.BottomModalSheetAnimation;
         sheet.getWindow().setGravity(Gravity.BOTTOM);
     }
+     */
 }

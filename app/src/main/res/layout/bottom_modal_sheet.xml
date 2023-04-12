@@ -16,34 +16,70 @@
         android:textColor="#000000"
         android:textStyle="bold" />
 
-    <RadioGroup
+    <Button
+        android:id="@+id/filterAll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/purple_500"
+        android:text="All"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/radioButtonFilterAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:checked="true"
-            android:text="All"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <Button
+        android:id="@+id/filterIncome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/purple_500"
+        android:text="Income"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/radioButtonFilterIncome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Income"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <Button
+        android:id="@+id/filterExpense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/purple_500"
+        android:text="Expense"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/white" />
 
-        <RadioButton
-            android:id="@+id/radioButtonFilterExpense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Expense"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-    </RadioGroup>
+    <!--    <RadioGroup-->
+    <!--        android:id="@+id/radioGrp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_marginTop="30dp">-->
+
+    <!--        <RadioButton-->
+    <!--            android:id="@+id/radioButtonFilterAll"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:checked="true"-->
+    <!--            android:text="All"-->
+    <!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
+
+    <!--        <RadioButton-->
+    <!--            android:id="@+id/radioButtonFilterIncome"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:text="Income"-->
+    <!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
+
+    <!--        <RadioButton-->
+    <!--            android:id="@+id/radioButtonFilterExpense"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="10dp"-->
+    <!--            android:text="Expense"-->
+    <!--            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
+    <!--    </RadioGroup>-->
 </LinearLayout>
