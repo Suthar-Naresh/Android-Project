@@ -27,7 +27,7 @@ public class SectionChildRecyclerAdaptor extends RecyclerView.Adapter<SectionChi
 
     @Override
     public void onBindViewHolder(@NonNull SectionChildViewHolder sectionChildViewHolder, int position) {
-        sectionChildViewHolder.sectionItem.setText(items.get(position));
+//        sectionChildViewHolder.;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SectionChildRecyclerAdaptor extends RecyclerView.Adapter<SectionChi
         TextView sectionItem;
         public SectionChildViewHolder(@NonNull View itemView) {
             super(itemView);
-            sectionItem = itemView.findViewById(R.id.sectionItem);
+//            sectionItem = itemView.findViewById(R.id.);
         }
     }
 }

@@ -3,4 +3,15 @@
     <string name="nav_home">Home</string>
     <string name="nav_add">Add</string>
     <string name="nav_chart">Charts</string>
+
+    <string-array name="categories">
+        <item>Other</item>
+        <item>Bill</item>
+        <item>Celebration</item>
+        <item>Print</item>
+        <item>Transport</item>
+        <item>Snacks</item>
+        <item>Shopping</item>
+        <item>Drinks</item>
+    </string-array>
 </resources>

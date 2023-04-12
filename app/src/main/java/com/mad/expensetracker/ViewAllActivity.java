@@ -40,7 +40,7 @@ public class ViewAllActivity extends AppCompatActivity {
             }
         });
 
-        initData();
+//        initData();
         viewAllListRecyclerView = findViewById(R.id.viewAllList);
         SectionRecyclerAdaptor mainRecyclerAdaptor = new SectionRecyclerAdaptor(sectionList);
         viewAllListRecyclerView.setAdapter(mainRecyclerAdaptor);
@@ -56,24 +56,24 @@ public class ViewAllActivity extends AppCompatActivity {
 
     private void initData(){
         String section1 = "1 Jan, 2023";
-        List<String> section1List = new ArrayList<>();
-        section1List.add("College To Home");
-        section1List.add("Subway");
+        List<Section.SectionChildCard> section1List = new ArrayList<>();
+        section1List.add(new Section.SectionChildCard(R.drawable.bill,"Mobile Recharge","700","1 Jan, 02:12 PM"));
+        section1List.add(new Section.SectionChildCard(R.drawable.snack,"Subway","120","1 Jan, 05:00 PM"));
 
-        String section2 = "25 Apr, 2023";
-        List<String> section2List = new ArrayList<>();
-        section2List.add("Sanju Birthday");
+//        String section2 = "25 Apr, 2023";
+//        List<Section.SectionChildCard> section2List = new ArrayList<>();
+//        section2List.add("Sanju Birthday");
+//
+//        String section3 = "11 Jan, 2023";
+//        List<Section.SectionChildCard> section3List = new ArrayList<>();
+//        section3List.add("College To Home");
+//        section3List.add("Mobile Recharge");
+//        section3List.add("CNS Xerox");
+//        section3List.add("MAD Xerox");
 
-        String section3 = "11 Jan, 2023";
-        List<String> section3List = new ArrayList<>();
-        section3List.add("College To Home");
-        section3List.add("Mobile Recharge");
-        section3List.add("CNS Xerox");
-        section3List.add("MAD Xerox");
-
-        sectionList.add(new Section(section1, section1List));
-        sectionList.add(new Section(section2, section2List));
-        sectionList.add(new Section(section3, section3List));
+//        sectionList.add(new Section(section1, section1List));
+//        sectionList.add(new Section(section2, section2List));
+//        sectionList.add(new Section(section3, section3List));
     }
 
     private void showBottomSheet(){

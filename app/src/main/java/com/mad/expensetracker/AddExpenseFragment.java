@@ -1,17 +1,22 @@
 package com.mad.expensetracker;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddExpenseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddExpenseFragment extends Fragment {
+public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,10 +58,35 @@ public class AddExpenseFragment extends Fragment {
         }
     }
 
+    Activity context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        context = getActivity();
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_expense, container, false);
+    }
+
+    public void onStart(){
+        super.onStart();
+
+        Spinner categorySpinner = context.findViewById(R.id.expenseTypeSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,R.array.categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+        categorySpinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String catgry = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), catgry, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

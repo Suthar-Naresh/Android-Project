@@ -11,13 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Expensetracker"
         tools:targetApi="31">
-
+        <activity
+            android:name=".TransactionInfo"
+            android:exported="false" />
         <activity
             android:name=".ViewAllActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            />
-
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

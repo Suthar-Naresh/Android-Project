@@ -39,16 +39,15 @@ public class Section {
         this.sectionItems = sectionItems;
     }
 
-    class SectionChildCard{
+    static class SectionChildCard{
         int expenseTypeIcon;
-        String cardExpenseTitle, cardExpenseType, cardExpenseAmount, cardExpenseDate;
+        String cardExpenseTitle, cardExpenseAmount, dateNTime;
 
-        public SectionChildCard(int expenseTypeIcon, String cardExpenseTitle, String cardExpenseType, String cardExpenseAmount, String cardExpenseDate) {
+        public SectionChildCard(int expenseTypeIcon, String cardExpenseTitle, String cardExpenseAmount, String dateNTime) {
             this.expenseTypeIcon = expenseTypeIcon;
             this.cardExpenseTitle = cardExpenseTitle;
-            this.cardExpenseType = cardExpenseType;
             this.cardExpenseAmount = cardExpenseAmount;
-            this.cardExpenseDate = cardExpenseDate;
+            this.dateNTime = dateNTime;
         }
     }
 }
