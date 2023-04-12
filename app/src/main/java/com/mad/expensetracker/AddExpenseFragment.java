@@ -1,15 +1,26 @@
 package com.mad.expensetracker;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,20 +80,110 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         return inflater.inflate(R.layout.fragment_add_expense, container, false);
     }
 
-    public void onStart(){
+    // Spinner selected value
+    String selectedCategory = null;
+    Spinner categorySpinner;
+
+    public void onStart() {
         super.onStart();
 
-        Spinner categorySpinner = context.findViewById(R.id.expenseTypeSpinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,R.array.categories, android.R.layout.simple_spinner_item);
+        // Spinner setup
+        categorySpinner = context.findViewById(R.id.expenseTypeSpinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.categories, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
         categorySpinner.setOnItemSelectedListener(this);
+
+        // Radio Group
+        RadioGroup radioGroup = (RadioGroup) context.findViewById(R.id.radioGroup);
+
+        // Setting current date and disabling so user can not select a date
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        EditText expenseDate = context.findViewById(R.id.expenseDate);
+        expenseDate.setText(currentDate);
+        expenseDate.setFocusable(false);
+
+        // Add expense click event
+        Button addExpenseButton = context.findViewById(R.id.addExpense);
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Fetching information filled in the form
+                EditText expenseTitle = context.findViewById(R.id.expenseTitle);
+                String expenseRecordTitle = expenseTitle.getText().toString().trim();
+
+                EditText expenseAmount = context.findViewById(R.id.expenseAmount);
+                String expenseRecordAmount = expenseAmount.getText().toString().trim();
+
+                EditText expenseDate = context.findViewById(R.id.expenseDate);
+                String expenseRecordDate = expenseDate.getText().toString().trim();
+
+                EditText expenseDescription = context.findViewById(R.id.expenseDescription);
+                String expenseRecordDescription = expenseDescription.getText().toString().trim();
+
+                int radioID = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = context.findViewById(radioID);
+                String expenseRecordType = radioButton.getText().toString();
+
+//                String msg = expenseRecordTitle+" "+expenseRecordAmount+" "+selectedCategory+" "+expenseRecordType;
+//                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+                addNewExpenseDB(expenseRecordTitle, expenseRecordAmount,expenseRecordDescription,expenseRecordType,selectedCategory);
+            }
+        });
+
+        // Cancel click event
+        Button cancelButton = context.findViewById(R.id.cancelExpense);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText expenseTitle = context.findViewById(R.id.expenseTitle);
+                expenseTitle.setText("");
+
+                EditText expenseAmount = context.findViewById(R.id.expenseAmount);
+                expenseAmount.setText("");
+
+                EditText expenseDescription = context.findViewById(R.id.expenseDescription);
+                expenseDescription.setText("");
+
+                RadioButton radioButton = context.findViewById(R.id.radioExpense);
+                radioButton.setChecked(true);
+
+                categorySpinner.setSelection(0);
+            }
+        });
     }
+
+    public void addNewExpenseDB(String expenseRecordTitle, String expenseRecordAmount,String expenseRecordDescription,String expenseRecordType,String selectedCategory){
+        if(TextUtils.isEmpty(expenseRecordTitle) ||  TextUtils.isEmpty(expenseRecordDescription) || TextUtils.isEmpty(expenseRecordType) || TextUtils.isEmpty(selectedCategory) || TextUtils.isEmpty(expenseRecordAmount)){
+            Toast.makeText(context, "Please provide all information.", Toast.LENGTH_SHORT).show();
+        }else{
+            // Add to database and empty form
+            //db stuff
+
+            Toast.makeText(context, "Data Added!", Toast.LENGTH_SHORT).show();
+
+            EditText expenseTitle = context.findViewById(R.id.expenseTitle);
+            expenseTitle.setText("");
+
+            EditText expenseAmount = context.findViewById(R.id.expenseAmount);
+            expenseAmount.setText("");
+
+            EditText expenseDescription = context.findViewById(R.id.expenseDescription);
+            expenseDescription.setText("");
+
+            RadioButton radioButton = context.findViewById(R.id.radioExpense);
+            radioButton.setChecked(true);
+
+            categorySpinner.setSelection(0);
+        }
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String catgry = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), catgry, Toast.LENGTH_SHORT).show();
+        selectedCategory = parent.getItemAtPosition(position).toString();
+//        Toast.makeText(parent.getContext(), selectedCategory, Toast.LENGTH_SHORT).show();
     }
 
     @Override
