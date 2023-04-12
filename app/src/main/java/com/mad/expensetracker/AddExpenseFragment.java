@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mad.expensetracker.Models.ExpenseRecord;
+import com.mad.expensetracker.data.MyDBHandler;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -83,6 +86,7 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
     // Spinner selected value
     String selectedCategory = null;
     Spinner categorySpinner;
+    String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
 
     public void onStart() {
         super.onStart();
@@ -98,7 +102,6 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         RadioGroup radioGroup = (RadioGroup) context.findViewById(R.id.radioGroup);
 
         // Setting current date and disabling so user can not select a date
-        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         EditText expenseDate = context.findViewById(R.id.expenseDate);
         expenseDate.setText(currentDate);
         expenseDate.setFocusable(false);
@@ -160,6 +163,9 @@ public class AddExpenseFragment extends Fragment implements AdapterView.OnItemSe
         }else{
             // Add to database and empty form
             //db stuff
+            MyDBHandler db = new MyDBHandler(context);
+            ExpenseRecord record = new ExpenseRecord(expenseRecordTitle,Integer.parseInt(expenseRecordAmount),expenseRecordType,currentDate,expenseRecordDescription,selectedCategory);
+            db.addNewExpense(record);
 
             Toast.makeText(context, "Data Added!", Toast.LENGTH_SHORT).show();
 

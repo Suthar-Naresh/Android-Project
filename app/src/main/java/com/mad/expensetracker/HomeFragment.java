@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.mad.expensetracker.Models.ExpenseRecord;
+import com.mad.expensetracker.data.MyDBHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +95,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //        Make database call and set the values accordingly from database...
-
         expenseRowList = new ArrayList<>();
+        MyDBHandler db = new MyDBHandler(context);
 
         recyclerView = context.findViewById(R.id.recentList);
 
@@ -102,30 +105,59 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setAdapter(recyclerAdaptor);
 
-//        Adding data to list
-        expenseRowList.add(new SingleRecentCardRow("College To Home","Transport","- ₹100","3 Feb, 2023",R.drawable.transport));
-        expenseRowList.add(new SingleRecentCardRow("Akshat Birthday","Celebration","- ₹250","11 Jan, 2023",R.drawable.celebration));
-        expenseRowList.add(new SingleRecentCardRow("Mobile Recharge","Bill","- ₹700","12 Feb, 2023",R.drawable.bill));
-        expenseRowList.add(new SingleRecentCardRow("MAD Xerox","Print","- ₹100","10 Apr, 2023",R.drawable.print));
-        expenseRowList.add(new SingleRecentCardRow("Subway","Snacks","- ₹120","27 Jan, 2023",R.drawable.snack));
-        expenseRowList.add(new SingleRecentCardRow("New Charger","Shopping","- ₹400","21 Feb, 2023",R.drawable.shopping));
-        expenseRowList.add(new SingleRecentCardRow("Coffee","Drinks","- ₹20","22 Feb, 2023",R.drawable.chai_coffee));
+        List<ExpenseRecord> allRecords = db.getAllRecords();
+
+        for (ExpenseRecord i:allRecords){
+            int expenseTypeIcon = R.drawable.other_2;
+
+            switch (i.getCategory()){
+                case "Other":
+                    expenseTypeIcon = R.drawable.other_2;
+                    break;
+                case "Bill":
+                    expenseTypeIcon = R.drawable.bill;
+                    break;
+                case "Celebration":
+                    expenseTypeIcon = R.drawable.celebration;
+                    break;
+                case "Transport":
+                    expenseTypeIcon = R.drawable.transport;
+                    break;
+                case "Snacks":
+                    expenseTypeIcon = R.drawable.snack;
+                    break;
+                case "Shopping":
+                    expenseTypeIcon = R.drawable.shopping;
+                    break;
+                case "Drinks":
+                    expenseTypeIcon = R.drawable.chai_coffee;
+                    break;
+            }
+
+            String amt = "";
+
+            if (i.getType().equals("Income")){
+                amt+="+ ₹";
+            }else{
+                amt+="- ₹";
+            }
+            amt+=String.valueOf(i.getAmount());
+
+            expenseRowList.add(new SingleRecentCardRow(i.getTitle(),i.getCategory(),amt,i.getDate(),expenseTypeIcon));
+        }
+
+//        expenseRowList.add(new SingleRecentCardRow("College To Home","Transport","- ₹100","3 Feb, 2023",R.drawable.transport));
+//        expenseRowList.add(new SingleRecentCardRow("Akshat Birthday","Celebration","- ₹250","11 Jan, 2023",R.drawable.celebration));
+//        expenseRowList.add(new SingleRecentCardRow("Mobile Recharge","Bill","- ₹700","12 Feb, 2023",R.drawable.bill));
+//        expenseRowList.add(new SingleRecentCardRow("MAD Xerox","Print","- ₹100","10 Apr, 2023",R.drawable.print));
+//        expenseRowList.add(new SingleRecentCardRow("Subway","Snacks","- ₹120","27 Jan, 2023",R.drawable.snack));
+//        expenseRowList.add(new SingleRecentCardRow("New Charger","Shopping","- ₹400","21 Feb, 2023",R.drawable.shopping));
+//        expenseRowList.add(new SingleRecentCardRow("Coffee","Drinks","- ₹20","22 Feb, 2023",R.drawable.chai_coffee));
 
         DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
     }
 
 //  Data type to store single card row data
-    class SingleRecentCardRow{
-        String cardExpenseTitle, cardExpenseType, cardExpenseAmount, cardExpenseDate;
-        int expenseTypeIcon;
 
-        public SingleRecentCardRow(String cardExpenseTitle, String cardExpenseType, String cardExpenseAmount, String cardExpenseDate, int expenseTypeIcon) {
-            this.cardExpenseTitle = cardExpenseTitle;
-            this.cardExpenseType = cardExpenseType;
-            this.cardExpenseAmount = cardExpenseAmount;
-            this.cardExpenseDate = cardExpenseDate;
-            this.expenseTypeIcon = expenseTypeIcon;
-        }
-    }
 }

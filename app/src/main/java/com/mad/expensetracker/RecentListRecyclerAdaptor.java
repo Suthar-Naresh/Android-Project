@@ -1,7 +1,9 @@
 package com.mad.expensetracker;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +15,9 @@ import java.util.List;
 public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRecyclerAdaptor.RecentCardRow>{
 
 //    To make constructor; so that we can map the values to incoming data!
-    List<HomeFragment.SingleRecentCardRow> expenseRowList;
+    List<SingleRecentCardRow> expenseRowList;
 
-    public RecentListRecyclerAdaptor(List<HomeFragment.SingleRecentCardRow> expenseRowList) {
+    public RecentListRecyclerAdaptor(List<SingleRecentCardRow> expenseRowList) {
         this.expenseRowList = expenseRowList;
     }
 
@@ -41,12 +43,21 @@ public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRe
         recentCardRowHolder.cardExpenseDate.setText("31 Jan, 2023");
  */
 
+
 //        Setting every row data on the basis of lists provided using position of row i.e. from db?
         recentCardRowHolder.expenseTypeIcon.setImageResource(expenseRowList.get(position).expenseTypeIcon);
         recentCardRowHolder.cardExpenseTitle.setText(expenseRowList.get(position).cardExpenseTitle);
         recentCardRowHolder.cardExpenseType.setText(expenseRowList.get(position).cardExpenseType);
         recentCardRowHolder.cardExpenseAmount.setText(expenseRowList.get(position).cardExpenseAmount);
         recentCardRowHolder.cardExpenseDate.setText(expenseRowList.get(position).cardExpenseDate);
+
+        String amt = expenseRowList.get(position).cardExpenseAmount;
+//        Log.d("x", "onBindViewHolder: sch "+expenseRowList.get(position).cardExpenseAmount);
+//
+        if(Character.compare(amt.charAt(0),'+')==0){
+//            Log.d("type", "onBindViewHolder: I'm INCOME");
+            recentCardRowHolder.cardExpenseAmount.setTextColor(Color.parseColor("#31CD38"));
+        }
     }
 
     @Override
@@ -70,7 +81,6 @@ public class RecentListRecyclerAdaptor extends RecyclerView.Adapter<RecentListRe
             cardExpenseType = itemView.findViewById(R.id.cardExpenseType);
             cardExpenseAmount = itemView.findViewById(R.id.cardExpenseAmount);
             cardExpenseDate = itemView.findViewById(R.id.cardExpenseDate);
-
         }
     }
 }
