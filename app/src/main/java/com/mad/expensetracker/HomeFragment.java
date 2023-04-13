@@ -138,6 +138,9 @@ public class HomeFragment extends Fragment {
                 case "Drinks":
                     expenseTypeIcon = R.drawable.chai_coffee;
                     break;
+                case "Print":
+                    expenseTypeIcon = R.drawable.print;
+                    break;
             }
 
             String amt = "";
