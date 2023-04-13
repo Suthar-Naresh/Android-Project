@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.mad.expensetracker.Models.ExpenseRecord;
 import com.mad.expensetracker.data.MyDBHandler;
@@ -87,6 +88,9 @@ public class HomeFragment extends Fragment {
 
         Button viewAllButton = (Button) context.findViewById(R.id.viewAll);
 
+        TextView expCurr = context.findViewById(R.id.expCurr);
+        TextView incCurr = context.findViewById(R.id.textView8);
+
         viewAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +101,8 @@ public class HomeFragment extends Fragment {
 
         expenseRowList = new ArrayList<>();
         MyDBHandler db = new MyDBHandler(context);
+
+
 
         recyclerView = context.findViewById(R.id.recentList);
 
@@ -146,6 +152,16 @@ public class HomeFragment extends Fragment {
             expenseRowList.add(new SingleRecentCardRow(i.getTitle(),i.getCategory(),amt,i.getDate(),expenseTypeIcon));
         }
 
+        int exp = db.getCurrentExpense();
+        int inc = db.getCurrentIncome();
+
+        String totalExp = "- ₹";
+        String totalInc = "+ ₹";
+//        Log.d("EXPTAG", "onStart: "+exp);
+
+        expCurr.setText(totalExp+String.valueOf(exp));
+        incCurr.setText(totalInc+String.valueOf(inc));
+
 //        expenseRowList.add(new SingleRecentCardRow("College To Home","Transport","- ₹100","3 Feb, 2023",R.drawable.transport));
 //        expenseRowList.add(new SingleRecentCardRow("Akshat Birthday","Celebration","- ₹250","11 Jan, 2023",R.drawable.celebration));
 //        expenseRowList.add(new SingleRecentCardRow("Mobile Recharge","Bill","- ₹700","12 Feb, 2023",R.drawable.bill));
@@ -157,7 +173,5 @@ public class HomeFragment extends Fragment {
         DividerItemDecoration divider = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(divider);
     }
-
-//  Data type to store single card row data
 
 }

@@ -172,4 +172,34 @@ public class MyDBHandler extends SQLiteOpenHelper {
         }
         return allRecords;
     }
+
+    public int getCurrentExpense(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int total = 0;
+
+        String query = "SELECT SUM("+Params.KEY_AMOUNT+") AS exp FROM "+Params.TABLE_NAME+" WHERE "+Params.KEY_TYPE+"='Expense'";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndex("exp"));
+        }
+        cursor.close();
+        Log.d("tg", "getCurrentExpense: "+total);
+        return total;
+    }
+
+    public int getCurrentIncome(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        int total = 0;
+
+        String query = "SELECT SUM("+Params.KEY_AMOUNT+") AS inc FROM "+Params.TABLE_NAME+" WHERE "+Params.KEY_TYPE+"='Income'";
+
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            total = cursor.getInt(cursor.getColumnIndex("inc"));
+        }
+        cursor.close();
+        Log.d("tg", "getCurrentExpense: "+total);
+        return total;
+    }
 }
